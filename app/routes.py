@@ -78,7 +78,7 @@ def create_medico():
         #añadirlo a la sesion sqlalchemy
         db.session.add(new_medico)
         db.session.commit()
-        flash("medico registrado correctamente")
+        flash("Medico registrado correctamente")
         return redirect("/medicos")
 
 #crear ruta para crear nuevo paciente
@@ -105,16 +105,18 @@ def create_paciente():
     elif(request.method == "POST"):
         #cuando se presiona "guardar"
         new_paciente = Paciente(nombre = request.form["nombre"],
-                            apellidos = request.form["apellidos"],
+                            apellido = request.form["apellidos"],
                             tipo_identificacion = request.form["ti"],
                             numero_identificacion = request.form["ni"],
                             altura = request.form["al"],
-                            tipo_de_sangres = request.form["rh"]
+                            tipo_sangre = request.form["rh"]
                             )
+        
         #añadirlo a la sesion sqlalchemy
         db.session.add(new_paciente)
         db.session.commit()
-        return "paciente registrado"
+        flash("paciente registrado correctamente")
+        return redirect("/pacientes")
     
 #crear ruta para crear nuevo consultorio
 @app.route("/consultorios/create" , methods = [ "GET" , "POST"] )
@@ -199,4 +201,112 @@ def delete_medico(id):
     medico_delete = Medico.query.get(id)
     db.session.delete(medico_delete)
     db.session.commit()
+    flash("Medico eliminado correctamente")
     return redirect('/medicos')
+
+@app.route('/pacientes/update/<int:id>', methods=['GET','POST'])
+def update_paciente(id):
+    tipo_de_sangres = [
+            "A+",
+            "O+",
+            "A-",
+            "O-",
+            "AB+",
+            "AB-"
+    ]
+    paciente_update = Paciente.query.get(id)
+    
+    if(request.method == 'GET'):
+        return render_template('paciente_update.html' , 
+                                paciente_update = paciente_update, 
+                                tipo_de_sangres = tipo_de_sangres)
+    elif(request.method == 'POST'):
+        #actualizar el medico con los datos del formulario
+        paciente_update.nombre = request.form['nombre']
+        paciente_update.apellido = request.form['apellidos']
+        paciente_update.tipo_identificacion = request.form['ti']
+        paciente_update.numero_identificacion = request.form['ni']
+        paciente_update.altura = request.form['al']
+        paciente_update.tipo_de_sangres = request.form['rh']
+        db.session.commit()
+        return redirect('/pacientes')
+    
+@app.route('/pacientes/delete/<int:id>', methods=['GET','POST'])
+def delete_paciente(id):
+    paciente_delete = Paciente.query.get(id)
+    db.session.delete(paciente_delete)
+    db.session.commit()
+    
+    return redirect('/pacientes')
+
+
+
+
+
+
+
+@app.route('/consultorios/update/<int:id>', methods=['GET','POST'])
+def update_consultorios(id):
+    tipo_de_sangres = [
+            "A+",
+            "O+",
+            "A-",
+            "O-",
+            "AB+",
+            "AB-"
+    ]
+    paciente_update = Paciente.query.get(id)
+    
+    if(request.method == 'GET'):
+        return render_template('paciente_update.html' , 
+                                paciente_update = paciente_update, 
+                                tipo_de_sangres = tipo_de_sangres)
+    elif(request.method == 'POST'):
+        #actualizar el medico con los datos del formulario
+        paciente_update.nombre = request.form['nombre']
+        paciente_update.apellido = request.form['apellidos']
+        paciente_update.tipo_identificacion = request.form['ti']
+        paciente_update.numero_identificacion = request.form['ni']
+        paciente_update.altura = request.form['al']
+        paciente_update.tipo_de_sangres = request.form['rh']
+        db.session.commit()
+        return redirect('/pacientes')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
