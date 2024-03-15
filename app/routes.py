@@ -1,6 +1,8 @@
 from . import app,db
 from .models import Medico, Paciente, Consultorio, Cita
 from flask import render_template, request, flash, redirect
+from datetime import date 
+from datetime import datetime 
 
 #crear ruta para ver los medicos
 @app.route("/medicos")
@@ -152,6 +154,62 @@ def create_consultorio():
         db.session.add(new_consultorio)
         db.session.commit()
         return "consultorio registrado"
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 @app.route("/citas/create", methods = ['GET', 'POST'])
 def create_cita():
@@ -160,9 +218,12 @@ def create_cita():
         pacientes = Paciente.query.all()
         medicos = Medico.query.all()
         consultorios = Consultorio.query.all()
-        return render_template("cita_form.html" , pacientes=pacientes , medicos=medicos, consultorios=consultorios  )
+        return render_template("cita_form.html" ,
+                               pacientes=pacientes ,
+                               medicos=medicos,
+                               consultorios=consultorios)
     elif(request.method == 'POST'):
-        new_cita = Cita(fecha = request.form['fecha'.datetime.strftime('%Y-%m-%d %H:%M')],
+        new_cita = Cita(fecha = request.form['fecha'.datetime.strptime('%Y-%m-%d %H:%M')],
                         paciente = request.form['pa'], 
                         medico = request.form['med'], 
                         consultorio = request.form['con'], 
@@ -170,6 +231,69 @@ def create_cita():
     db.session.add(new_cita)
     db.session.commit()
     return 'cita registrada'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @app.route('/medicos/update/<int:id>', methods=['GET','POST'])
 def update_medico(id):
@@ -239,41 +363,67 @@ def delete_paciente(id):
     
     return redirect('/pacientes')
 
-
-
-
-
-
-
 @app.route('/consultorios/update/<int:id>', methods=['GET','POST'])
-def update_consultorios(id):
-    tipo_de_sangres = [
-            "A+",
-            "O+",
-            "A-",
-            "O-",
-            "AB+",
-            "AB-"
+def update_consultorio(id):
+    numero = [
+            "101",
+            "102",
+            "103",
+            "104",
+            "105",
+            "201",
+            "202",
+            "203",
+            "204",
+            "205"
     ]
-    paciente_update = Paciente.query.get(id)
+    consultorio_update = Consultorio.query.get(id)
     
     if(request.method == 'GET'):
-        return render_template('paciente_update.html' , 
-                                paciente_update = paciente_update, 
-                                tipo_de_sangres = tipo_de_sangres)
+        return render_template('consultorio_update.html' , 
+                                consultorio_update = consultorio_update, 
+                                numero = numero)
     elif(request.method == 'POST'):
         #actualizar el medico con los datos del formulario
-        paciente_update.nombre = request.form['nombre']
-        paciente_update.apellido = request.form['apellidos']
-        paciente_update.tipo_identificacion = request.form['ti']
-        paciente_update.numero_identificacion = request.form['ni']
-        paciente_update.altura = request.form['al']
-        paciente_update.tipo_de_sangres = request.form['rh']
+        consultorio_update.numero = request.form['nu']
         db.session.commit()
-        return redirect('/pacientes')
+        return redirect('/consultorios')
+    
+    
+@app.route('/consultorios/delete/<int:id>', methods=['GET','POST'])
+def delete_consultorio(id):
+    consultorio_delete = Consultorio.query.get(id)
+    db.session.delete(consultorio_delete)
+    db.session.commit()
+    
+    return redirect('/consultorios')
 
 
 
+
+
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 
 

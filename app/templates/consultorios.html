@@ -14,6 +14,8 @@
             <tr>
                 <th>Numero</th>
                 <th>Ver detalles</th>
+                <th>actualizar</th>
+                <th>eliminar</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +25,16 @@
                     <td>
                         <a href="/consultorios/{{ consultorio.id }}">
                             Ver Detalles
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/consultorios/update/{{ consultorio.id }}">
+                            actualizar
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/consultorios/delete/{{ consultorio.id }}">
+                            eliminar
                         </a>
                     </td>
                 </tr>
