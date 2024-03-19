@@ -1,8 +1,7 @@
 from . import app,db
 from .models import Medico, Paciente, Consultorio, Cita
 from flask import render_template, request, flash, redirect
-from datetime import date 
-from datetime import datetime 
+from datetime import datetime
 
 #crear ruta para ver los medicos
 @app.route("/medicos")
@@ -209,28 +208,37 @@ def create_consultorio():
     
     
     
-    
+
 
 @app.route("/citas/create", methods = ['GET', 'POST'])
 def create_cita():
     
     if(request.method == 'GET'):
+        valores = [
+            4500,
+            7000,
+            20000]
+        fecha = datetime.now()
         pacientes = Paciente.query.all()
-        medicos = Medico.query.all()
+        medicos= Medico.query.all()
         consultorios = Consultorio.query.all()
-        return render_template("cita_form.html" ,
-                               pacientes=pacientes ,
-                               medicos=medicos,
-                               consultorios=consultorios)
+        return render_template("cita_form.html", pacientes = pacientes, medicos = medicos, consultorios = consultorios, valores = valores, fecha = fecha)
+    
     elif(request.method == 'POST'):
-        new_cita = Cita(fecha = request.form['fecha'.datetime.strptime('%Y-%m-%d %H:%M')],
-                        paciente = request.form['pa'], 
-                        medico = request.form['med'], 
-                        consultorio = request.form['con'], 
-                        valor = request.form['val'])
-    db.session.add(new_cita)
-    db.session.commit()
-    return 'cita registrada'
+        fecha = datetime.strptime(request.form['fecha'], "%Y-%m-%dT%H:%M")
+        new_cita = Cita(
+            fecha=fecha,
+            paciente_id = request.form['pa'],
+            medico_id = request.form['med'],
+            consultorio_id = request.form['con'],
+            valor = request.form['val']
+        )
+        db.session.add(new_cita)
+        db.session.commit()
+        return redirect('/citas')
+
+
+
 
 
 
@@ -400,6 +408,28 @@ def delete_consultorio(id):
 
 
 
+
+
+
+@app.route('/citas/update/<int:id>', methods=['GET','POST'])
+def update_cita(id):
+    if(request.method == 'GET'):
+        fecha = datetime.now()
+        pacientes = Paciente.query.all()
+        medicos= Medico.query.all()
+        consultorios = Consultorio.query.all()
+        cita_update = Cita.query.get(id)
+        return render_template("cita_update.html", pacientes = pacientes, medicos = medicos, consultorios = consultorios,  fecha = fecha, cita_update = cita_update)
+        
+    elif(request.method == 'POST'):
+        cita_update = Cita.query.get(id)
+        cita_update.fecha = datetime.strptime (request.form['fecha'],"%Y-%m-%dT%H:%M")
+        cita_update.paciente_id = request.form['pa']
+        cita_update.medico_id = request.form['med']
+        cita_update.consultorio_id = request.form['con']
+        cita_update.valor = request.form['val']
+        db.session.commit()
+        return redirect('/citas')
 
 
 

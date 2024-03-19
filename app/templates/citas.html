@@ -19,6 +19,7 @@
                 <th>Consultorio</th>
                 <th>Valor</th>
                 <th>Ver detalles</th>
+                <th>Actualizar</th>
             </tr>
         </thead>
         <tbody>
@@ -32,6 +33,11 @@
                     <td>
                         <a href="/citas/{{ cita.id }}">
                             Ver Detalles
+                        </a>
+                    </td>
+                    <td>
+                        <a href="/citas/update/{{ cita.id }}">
+                            Actualizar
                         </a>
                     </td>
                 </tr>
