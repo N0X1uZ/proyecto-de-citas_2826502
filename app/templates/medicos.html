@@ -4,85 +4,108 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Medicos</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
-
-        ul{
-            display: grid;
-            width: 290px;
-            align-items: ;
-            border-radius: 15px;      
+        body {
+            font-family: Arial, sans-serif;
         }
-
-        li{
-            display: grid;
-            width: 290px;
-            align-items: right;
-            border-radius: 15px;  
+        .table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+        }
+        .table th {
+            background-color: #f8f9fa;
+            color: #495057;
+            padding: 10px;
+            text-align: left;
+        }
+        .table td {
+            padding: 10px;
+            border: 1px solid #dee2e6;
+        }
+        .btn {
+            padding: 5px 10px;
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        .btn-info {
+            background-color: #17a2b8;
+        }
+        .btn-warning {
+            background-color: #ffc107;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-primary {
+            background-color: #007bff;
         }
     </style>
 </head>
 <body>
-
-    <h1> Lista de Medicos </h1>
-
-    <table class="table table-dark">
-        <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Apellidos</th>
-                <th>Tipo de identificación</th>
-                <th>numero de identificación</th>
-                <th>numero de registro</th>
-                <th>especialidad</th>
-                <th>Ver detalles</th>
-                <th>Actualizar</th>
-                <th>Eliminar</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for medico in medicos %}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4"> Lista de Medicos </h1>
+        <div class="mb-4">
+            <a href="/pacientes" class="btn btn-info">Pacientes</a>
+            <a href="/medicos" class="btn btn-info">Médicos</a>
+            <a href="/consultorios" class="btn btn-info">Consultorios</a>
+            <a href="/citas" class="btn btn-info">Citas</a>
+            <a href="/medicos/create" class="btn btn-primary">Crear Médico</a>
+        </div>
+        <table class="table table-striped">
+            <thead class="thead-dark">
                 <tr>
-                    <td> {{ medico.nombre }} </td>
-                    <td> {{ medico.apellido }} </td>
-                    <td> {{ medico.tipo_identificacion }} </td>
-                    <td> {{ medico.numero_identificacion }} </td>
-                    <td> {{ medico.registro_medico }} </td>
-                    <td> {{ medico.especialidad }} </td>
-                    <td>
-                        <a href="/medicos/{{ medico.id }}">
-                            Ver Detalles
-                        </a>
-                    </td>
-                    
-                    <td>
-                        <a href="/medicos/update/{{ medico.id }}">
-                            Actualizar
-                        </a>
-                    </td>
-
-                    <td>
-                        <a href="/medicos/delete/{{ medico.id }}">
-                            Eliminar
-                        </a>
-                    </td>
-
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Tipo de identificación</th>
+                    <th>Número de identificación</th>
+                    <th>Número de registro</th>
+                    <th>Especialidad</th>
+                    <th>Ver detalles</th>
+                    <th>Actualizar</th>
+                    <th>Eliminar</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot></tfoot>
-    </table>
-
-    <button class="btn btn-primary" ><a href="/medicos/create" style="color:white">CREAR MEDICO</a></button>
-
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                    <li class="p-3 text-primary-emphasis bg-primary-subtle border border-primary-subtle rounded-3" style="background-color: #20c997">{{ message }}</li>
+            </thead>
+            <tbody>
+                {% for medico in medicos %}
+                    <tr>
+                        <td> {{ medico.nombre }} </td>
+                        <td> {{ medico.apellido }} </td>
+                        <td> {{ medico.tipo_identificacion }} </td>
+                        <td> {{ medico.numero_identificacion }} </td>
+                        <td> {{ medico.registro_medico }} </td>
+                        <td> {{ medico.especialidad }} </td>
+                        <td>
+                            <a href="/medicos/{{ medico.id }}" class="btn btn-info">
+                                Ver Detalles
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/medicos/update/{{ medico.id }}" class="btn btn-warning">
+                                Actualizar
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/medicos/delete/{{ medico.id }}" class="btn btn-danger">
+                                Eliminar
+                            </a>
+                        </td>
+                    </tr>
                 {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
+            </tbody>
+        </table>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info mt-3">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+    </div>
 </body>
 </html>

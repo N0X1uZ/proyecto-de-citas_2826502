@@ -6,59 +6,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
     <style>
-        .body {
-            display: grid;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        #formulario {
+            box-shadow: 0 0 10px rgba(0,0,0,0.15);
         }
-        #formulario{
-            display: grid;
-            width: 500px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
-            background-color: gray;
+        .btn-primary {
+            background-color: #007BFF;
+            border-color: #007BFF;
         }
     </style>
 </head>
 <body>
-    <h1> nuevo paciente </h1>
-    <form method="post" id="formulario" >
-        <p> Nombre: <input type="text" class="form-control" placeholder="Nombre" name="nombre"/></p>  
-        <p> Apellidos: <input type="text" class="form-control" placeholder="Apellidos" name="apellidos"/></p>
-
-
-
-        <p> tipo de identificacion: 
-            <select name="ti" class="form-select" name="ti">
-                <option>TI</option>
-                <option>CC</option>
-            </select>
-        </p>
-
-
-        <p> Numero de identificacion:
-            <input type="text" name="ni"  class="form-control" placeholder="Numero de identificacion"  />
-        </p>
-
-        <p>Altura:
-            <input type="text" name="al"  class="form-control" placeholder="Altura"   />
-        </p>
-        
-
-        <p>Tipo de sangre:
-            <select name="rh" class="form-select">
-                {% for tipo_de_sangre in tipo_de_sangres %}
-                    <option>{{ tipo_de_sangre }}</option>
-                {% endfor %}
-            </select>
-        </p>
-
-
-        <button type="submit" class="btn btn-primary">
-            Guardar
-        </button>
-    </form>
+    <div class="container">
+        <h1 class="text-center my-4">Nuevo Paciente</h1>
+        <form method="post" id="formulario" class="bg-light p-4 rounded">
+            <div class="mb-3">
+                <label for="nombre" class="form-label">Nombre:</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Nombre" name="nombre"/>
+            </div>
+            <div class="mb-3">
+                <label for="apellidos" class="form-label">Apellidos:</label>
+                <input type="text" class="form-control" id="apellidos" placeholder="Apellidos" name="apellidos"/>
+            </div>
+            <div class="mb-3">
+                <label for="ti" class="form-label">Tipo de Identificación:</label>
+                <select id="ti" class="form-select" name="ti">
+                    <option>TI</option>
+                    <option>CC</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="ni" class="form-label">Número de Identificación:</label>
+                <input type="text" class="form-control" id="ni" placeholder="Número de Identificación" name="ni"/>
+            </div>
+            <div class="mb-3">
+                <label for="al" class="form-label">Altura:</label>
+                <input type="text" class="form-control" id="al" placeholder="Altura" name="al"/>
+            </div>
+            <div class="mb-3">
+                <label for="rh" class="form-label">Tipo de Sangre:</label>
+                <select id="rh" class="form-select" name="rh">
+                    {% for tipo_de_sangre in tipo_de_sangres %}
+                        <option>{{ tipo_de_sangre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+    </div>
 </body>
 </html>

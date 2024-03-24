@@ -49,6 +49,8 @@ def get_cita_by_id(id):
     return render_template("cita.html",
                            cit = cita)
 
+#--------------------------------------------------------------------------------------------------------------------------------#
+
 #crear ruta para crear nuevo medico
 @app.route("/medicos/create" , methods = [ "GET" , "POST"] )
 def create_medico():
@@ -81,6 +83,8 @@ def create_medico():
         db.session.commit()
         flash("Medico registrado correctamente")
         return redirect("/medicos")
+
+#--------------------------------------------------------------------------------------------------------------------------------#
 
 #crear ruta para crear nuevo paciente
 @app.route("/pacientes/create" , methods = [ "GET" , "POST"] )
@@ -119,6 +123,8 @@ def create_paciente():
         flash("paciente registrado correctamente")
         return redirect("/pacientes")
     
+#------------------------------------------------------------------------------------------------------------------------#
+    
 #crear ruta para crear nuevo consultorio
 @app.route("/consultorios/create" , methods = [ "GET" , "POST"] )
 def create_consultorio():
@@ -152,64 +158,13 @@ def create_consultorio():
         #añadirlo a la sesion sqlalchemy
         db.session.add(new_consultorio)
         db.session.commit()
-        return "consultorio registrado"
+        flash('Consultorio creado')
+        return redirect('/consultorios')
     
+    #Actualizar Medico
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-
+#--------------------------------------------------------------------------------------------------------------------------------#
+#Crear Citas
 @app.route("/citas/create", methods = ['GET', 'POST'])
 def create_cita():
     
@@ -235,74 +190,16 @@ def create_cita():
         )
         db.session.add(new_cita)
         db.session.commit()
+        flash('cita creada')
         return redirect('/citas')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
+    
+
+#--------------------------------------------------------------------------------------------------------------------------------#
+    #ACTUALIZACIONES Y ELIMINACIONES
+    
+    
+#Actualizar Medico
 @app.route('/medicos/update/<int:id>', methods=['GET','POST'])
 def update_medico(id):
     especialidades = [
@@ -326,8 +223,11 @@ def update_medico(id):
         medico_update.registro_medico = request.form['rm']
         medico_update.especialidad = request.form['es']
         db.session.commit()
+        flash('Medico actualizado')
         return redirect('/medicos')
     
+    
+ #Eliminar Medico   
 @app.route('/medicos/delete/<int:id>', methods=['GET','POST'])
 def delete_medico(id):
     medico_delete = Medico.query.get(id)
@@ -336,6 +236,8 @@ def delete_medico(id):
     flash("Medico eliminado correctamente")
     return redirect('/medicos')
 
+
+#Actualizar Paciente
 @app.route('/pacientes/update/<int:id>', methods=['GET','POST'])
 def update_paciente(id):
     tipo_de_sangres = [
@@ -361,16 +263,21 @@ def update_paciente(id):
         paciente_update.altura = request.form['al']
         paciente_update.tipo_de_sangres = request.form['rh']
         db.session.commit()
+        flash('Paciente Actualizado')
         return redirect('/pacientes')
     
+    
+#Eliminar Paciente    
 @app.route('/pacientes/delete/<int:id>', methods=['GET','POST'])
 def delete_paciente(id):
     paciente_delete = Paciente.query.get(id)
     db.session.delete(paciente_delete)
     db.session.commit()
-    
+    flash('Paciente Eliminado')
     return redirect('/pacientes')
 
+
+#Actualizar Consultorio
 @app.route('/consultorios/update/<int:id>', methods=['GET','POST'])
 def update_consultorio(id):
     numero = [
@@ -395,22 +302,21 @@ def update_consultorio(id):
         #actualizar el medico con los datos del formulario
         consultorio_update.numero = request.form['nu']
         db.session.commit()
+        flash('Consultorio Actualizado')
         return redirect('/consultorios')
     
-    
+ 
+ #Eliminar Consultorio   
 @app.route('/consultorios/delete/<int:id>', methods=['GET','POST'])
 def delete_consultorio(id):
     consultorio_delete = Consultorio.query.get(id)
     db.session.delete(consultorio_delete)
     db.session.commit()
-    
+    flash('Consultorio Eliminado')  
     return redirect('/consultorios')
 
 
-
-
-
-
+#Actualizar Citas
 @app.route('/citas/update/<int:id>', methods=['GET','POST'])
 def update_cita(id):
     if(request.method == 'GET'):
@@ -429,9 +335,18 @@ def update_cita(id):
         cita_update.consultorio_id = request.form['con']
         cita_update.valor = request.form['val']
         db.session.commit()
+        flash('Cita Actualizada')
         return redirect('/citas')
-
-
+    
+    
+#Eliminar Cita
+@app.route('/citas/delete/<int:id>', methods=['GET','POST'])
+def delete_cita(id):
+    cita_delete = Cita.query.get(id)
+    db.session.delete(cita_delete)
+    db.session.commit()
+    flash('Cita Eliminada')
+    return redirect('/citas')
 
 
     

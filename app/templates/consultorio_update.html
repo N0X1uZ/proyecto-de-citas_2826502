@@ -6,30 +6,50 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Document</title>
     <style>
-        .body {
-            display: grid;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+            padding: 20px;
         }
-        #formulario{
-            display: grid;
-            width: 500px;
-            align-items: center;
-            justify-content: center;
-            border-radius: 15px;
+        .form-label {
+            color: #495057;
+            font-weight: bold;
+        }
+        .form-control {
+            border-radius: 0.25rem;
+            border-color: #ced4da;
+            padding: 10px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            margin-top: 20px;
+        }
+        h1 {
+            color: #212529;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
         }
     </style>
 </head>
-<body>
-    <h1> Actualizar Consultorio </h1>
-    <form method="post" action="/consultorios/update/{{consultorio_update.id}}" style="background-color: gray" id="formulario">
-        <p> Numero de consultorio:
-            <input type="number" name="nu" class="form-control" placeholder="Numero"/>
-        </p>
-        <button type="submit" class="btn btn-primary"> 
-            Actualizar
-        </button>
+<body class="body">
+    
+    <h1 class="mb-4">Actualizar Consultorio</h1>
+
+    <form method="post" action="/consultorios/update/{{consultorio_update.id}}" id="formulario">
+        <div class="mb-3">
+            <label for="nu" class="form-label">Número de consultorio:</label>
+            <input type="number" class="form-control" id="nu" name="nu" placeholder="Número">
+        </div>
+        <button type="submit" class="btn btn-primary">Actualizar</button>
     </form>
 </body>
 </html>
